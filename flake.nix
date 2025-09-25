@@ -32,7 +32,11 @@
     extractDocker = image:
       pkgs.vmTools.runInLinuxVM (
         pkgs.runCommand "docker-preload-image" {
-          memSize = 16 * 1024;
+	  preVM = pkgs.vmTools.createEmptyImage {
+            size = 1024;
+            fullName = "vm-image";
+          };
+          memSize = 32 * 1024;
           buildInputs = [
             pkgs.curl
             pkgs.kmod
